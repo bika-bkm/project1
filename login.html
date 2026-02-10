@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Mastery | Login</title>
+    <link rel="stylesheet" href="css/styl.css">
+    <link rel="icon" type="image/png" href="css/images/MO.png">
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>English</h1>
+        <p>Login to access your games</p>
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Username or Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="extra-links">
+            <p><a href="signup.html">Create an account</a></p>
+            <p><a href="/forgot-password">Forgot password?</a></p>
+        </div>
+    </div>
+    <script src="BackEnd/index.js"></script>
+</body>
+
+</html>

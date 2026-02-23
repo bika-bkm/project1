@@ -9,7 +9,7 @@ body {
     height: 100vh;
 }
 
-.login-container {
+.container {
     background: rgba(141, 119, 247, 0.973);
     padding: 40px;
     border-radius: 12px;
@@ -19,19 +19,19 @@ body {
     animation: fadeIn 0.6s ease-in-out;
 }
 
-.login-container h1 {
+.container h1 {
     margin-bottom: 10px;
     font-size: 28px;
     color: #0660fbfb;
 }
 
-.login-container p {
+.container p {
     margin-bottom: 25px;
     font-size: 14px;
     color: hsla(245, 100%, 2%, 0.615);
 }
 
-.login-container input {
+.container input {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -43,14 +43,14 @@ body {
     font-size: 14px;
 }
 
-.login-container input::placeholder {
+.container input::placeholder {
     background-color: #0105f1;
     text-align: center;
     color: #f8f8fba8;
 }
 
-.login-container button {
-    width: 100%;
+.container button {
+    width: 106%;
     padding: 12px;
     background: #3d2cf9b1;
     color: #000000;
@@ -61,23 +61,23 @@ body {
     transition: 0.3s ease;
 }
 
-.login-container button:hover {
+.container button:hover {
     background: #cf18002b;
     transform: translateY(-2px);
 }
 
-.login-container .extra-links {
+.container .extra-links {
     margin-top: 15px;
     font-size: 20px;
 }
 
-.login-container .extra-links a {
+.container .extra-links a {
     color: #00000bb1;
     text-decoration: none;
     transition: 0.2s;
 }
 
-.login-container .extra-links a:hover {
+.container .extra-links a:hover {
     text-decoration: underline;
 }
 

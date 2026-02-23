@@ -2,73 +2,63 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 const helmet = require("helmet");
+const PORT = 5000;
+const app = express();
 const path = require("path");
 
 
-const app = express();
-app.use(express.json());
-app.use(cors());
-
-const PORT = 5000;
-
-app.use(express.json());
-
-app.use(
-    helmet.contentSecurityPolicy({
-        directives: {
-            defaultSrc: ["'self'"],
-            connectSrc: [
-                "'self'",
-                "http://127.0.0.1:8000",
-                "ws://localhost:42877/"
-            ]
-        }
-    })
-);
-
-
 app.use(express.static(path.join(__dirname, "../")));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+app.use(helmet());
+
+if (!fs.existsSync("db.json")) {
+    fs.writeFileSync("db.json", JSON.stringify({ users: [] }));
+}
 
 function readDB() {
-    const data = fs.readFileSync("db.json", "utf8");
-    return JSON.parse(data);
+    return JSON.parse(fs.readFileSync("db.json", "utf8"));
 }
 
 function writeDB(data) {
     fs.writeFileSync("db.json", JSON.stringify(data, null, 2));
 }
 
-app.get("/users", (req, res) => {
-    const db = readDB();
-    res.json(db.users);
-});
+app.post("/signup", (req, res) => {
+    const { username, email, password } = req.body;
 
-app.post("signup", (req, res) => {
+    if (!username || !email || !password)
+        return res.status(400).json({ message: "Missing fields" });
+
     const db = readDB();
+
+
+    if (db.users.find(u => u.email === email))
+        return res.status(409).json({ message: "Email already exists" });
+
     const newUser = {
-        id: db.users.length + 1,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
+        id: Date.now(),
+        username,
+        email,
+        password,
         createdAt: new Date().toISOString()
     };
+
     db.users.push(newUser);
     writeDB(db);
-    res.json({ message: "User created!", user: newUser });
+
+    res.json({ message: "User created!" });
 });
 
 app.post("/login", (req, res) => {
     const db = readDB();
-    const { email, password } = req.body;
-    const user = db.users.find(u => u.email === email && u.password === password);
+    const { username, password } = req.body;
 
-    if (user) {
-        res.json({ message: "Login successful", user });
-    } else {
-        res.status(401).json({ message: "Invalid credentials" });
-    }
+    const user = db.users.find(u => u.username === username && u.password === password);
+
+    if (user) res.json({ message: "Login success", userId: user.id });
+    else res.status(401).json({ message: "Invalid credentials" });
 });
 
-app.listen(5000, () => {
-    console.log(" Server running on http://localhost:5000");
-});
+app.listen(PORT, () => console.log("running"));

@@ -1,45 +1,50 @@
-const burger = document.querySelector('.hamburger');
-const nav = document.querySelector('.nav');
-burger?.addEventListener('click', () => nav.classList.toggle('open'));
 
-const reveal = () => {
-    document.querySelectorAll('section, footer, header').forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        if (top < window.innerHeight - 100) {
-            el.style.opacity = '1';
-            el.style.transform = 'translateY(0)';
-        }
-    });
-};
-window.addEventListener('scroll', reveal);
-window.addEventListener('load', reveal);
+// ده اللينك بتاع الموقع
+// http://localhost:5000/login.html
 
-document.getElementById("btn1").addEventListener("click", function () {
-    window.location.href = "big.html";
-});
 
-// زرار الكارت الثاني → يفتح صفحة شراء 3 شهور
-document.getElementById("btn2").addEventListener("click", function () {
-    window.location.href = "int.html";
-});
+async function signup(e) {
+    e?.preventDefault();
 
-// زرار الكارت الثالث → يفتح صفحة شراء 6 شهور
-document.getElementById("btn3").addEventListener("click", function () {
-    window.location.href = "pro.html";
-});
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const email = document.getElementById("email");
 
-// سكريبت بسيط
-document.querySelectorAll(".has-dropdown").forEach(item => {
-    let timeout;
-
-    item.addEventListener("mouseenter", () => {
-        clearTimeout(timeout);
-        item.classList.add("show");
+    const res = await fetch("/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: username.value,
+            email: email.value,
+            password: password.value
+        })
     });
 
-    item.addEventListener("mouseleave", () => {
-        timeout = setTimeout(() => {
-            item.classList.remove("show");
-        }, 250); // ← هنا الـ delay (2 ثانية)
+    const data = await res.json();
+
+    alert(data.message);
+
+    if (res.ok) window.location.href = "/index.html";
+}
+
+async function login(e) {
+    e?.preventDefault();
+
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            username: username.value,
+            password: password.value
+        })
     });
-});
+
+    const data = await res.json();
+
+    alert(data.message);
+
+    if (res.ok) window.location.href = "/index.html";
+}

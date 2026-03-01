@@ -61,6 +61,10 @@ app.post("/login", (req, res) => {
     else res.status(401).json({ message: "Invalid credentials" });
 });
 
+app.get("/", (req, res) => {
+    res.send("Server is working 🚀");
+});
+
 app.listen(PORT, () => {
     console.log("Server running on port " + PORT);
 });

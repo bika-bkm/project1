@@ -26,7 +26,7 @@ function writeDB(data) {
     fs.writeFileSync("db.json", JSON.stringify(data, null, 2));
 }
 
-app.post("/signup", (req, res) => {
+app.post("/signup.html", (req, res) => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password)
@@ -52,7 +52,7 @@ app.post("/signup", (req, res) => {
     res.json({ message: "User created!" });
 });
 
-app.post("/login", (req, res) => {
+app.post("/login.html", (req, res) => {
     const db = readDB();
     const { username, password } = req.body;
 
@@ -62,7 +62,7 @@ app.post("/login", (req, res) => {
     else res.status(401).json({ message: "Invalid credentials" });
 });
 
-app.get("/", (req, res) => {
+app.get("/index.html", (req, res) => {
     res.send("Server is working 🚀");
 });
 

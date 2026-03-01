@@ -10,7 +10,7 @@ async function signup(e) {
     const password = document.getElementById("password");
     const email = document.getElementById("email");
 
-    const res = await fetch("../signup", {
+    const res = await fetch("/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -33,7 +33,7 @@ async function login(e) {
     const username = document.getElementById("username");
     const password = document.getElementById("password");
 
-    const res = await fetch("../login", {
+    const res = await fetch("/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

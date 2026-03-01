@@ -2,7 +2,7 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 const helmet = require("helmet");
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 const path = require("path");
 
@@ -61,4 +61,7 @@ app.post("/login", (req, res) => {
     else res.status(401).json({ message: "Invalid credentials" });
 });
 
-app.listen(PORT, () => console.log("running"));
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
+});
+// app.listen(PORT, () => console.log("running"));

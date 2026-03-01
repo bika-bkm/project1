@@ -62,7 +62,7 @@ app.post("/login", (req, res) => {
     else res.status(401).json({ message: "Invalid credentials" });
 });
 
-app.get("/index", (req, res) => {
+app.get("/", (req, res) => {
     res.send("Server is working 🚀");
 });
 

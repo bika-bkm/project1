@@ -63,7 +63,7 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/home.html");
+    res.sendFile(__dirname + "/index.html");
 });
 
 app.listen(PORT, "0.0.0.0", () => {
